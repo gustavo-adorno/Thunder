@@ -1,0 +1,22 @@
+#!/bin/sh
+
+python /DATA/a_modulo-1/a_step-1.py
+
+sleep 15
+python /DATA/a_modulo-1/a_step-1.py
+
+sleep 15
+python /DATA/a_modulo-1/a_step-1.py
+
+sleep 15
+python /DATA/a_modulo-1/a_step-1.py
+
+#sleep 10
+#python /DATA/a_modulo-1/a_step-1.py
+
+#sleep 10
+#python /DATA/a_modulo-1/a_step-1.py
+
+
+
+

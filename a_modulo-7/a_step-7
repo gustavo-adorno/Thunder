@@ -1,0 +1,78 @@
+#!/bin/sh
+
+
+mount -t cifs //192.168.1.5/DATA -o username=hgallardo,password=Piedras428 /DATA/SHARED
+
+sleep 15
+
+screen -dm telegram-sqsh
+screen -LSdm telegram-session
+
+sleep 15
+
+F1=/DATA/a_modulo-7/f1.txt 
+F2=/DATA/a_modulo-7/f2.txt 
+F3=/DATA/a_modulo-7/f3.txt 
+F4=/DATA/a_modulo-7/f4.txt
+
+F5=/DATA/a_modulo-7/f5.txt
+F6=/DATA/a_modulo-7/f6.txt
+F7=/DATA/a_modulo-7/f7.txt
+
+F10=/DATA/a_modulo-7/nro_screen_sqsh.txt
+F11=/DATA/a_modulo-7/nro_screen_telegram.txt
+
+screen -ls > $F1
+
+#-------------- sqsh ------------------------------------
+
+# Busqueda de todos las lineas con ##
+grep -r ".telegram-sqsh" $F1 > $F2
+
+# Elimina la informacion entre ()
+sed 's/([^)]*)//g' $F2 > $F3
+
+# Eliminacion de espacios en blanco
+sed 's/.telegram-sqsh//' $F3 > $F4
+
+# Eliminacion de los espacios en blanco  adelante y atras
+sed 's/^[ \t]*//;s/[ \t]*$//' $F4 > $F10
+
+sleep 5
+
+# Leer Numero de sesion
+NUM=$(head -1 $F10 | tail -1)
+
+screen -S $NUM.telegram-sqsh -p 0 -X stuff "`printf "cd /root\r"`";
+
+
+
+#-------------- telegram ------------------------------------
+
+# Busqueda de todos las lineas con ##
+grep -r ".telegram-session" $F1 > $F5
+
+# Elimina la informacion entre ()
+sed 's/([^)]*)//g' $F5 > $F6
+
+# Eliminacion de espacios en blanco
+sed 's/.telegram-session//' $F6 > $F7
+
+# Eliminacion de los espacios en blanco  adelante y atras
+sed 's/^[ \t]*//;s/[ \t]*$//' $F7 > $F11
+
+
+sleep 5
+
+
+# Leer Numero de sesion 
+NUM2=$(head -1 $F11 | tail -1)
+
+screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "cd /DATA/tg-master\r"`";
+
+sleep 10
+screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "./telegram -k tg.pub\r"`";
+
+#sleep 5
+#screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "status_online\r"`";
+

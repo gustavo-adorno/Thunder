@@ -1,0 +1,10 @@
+#!/bin/sh
+
+screen -dm telegram-sqsh
+screen -LSdm telegram-session
+
+
+
+
+
+

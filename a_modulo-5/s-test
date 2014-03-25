@@ -1,0 +1,14 @@
+#!/bin/bash
+
+USUARIO=!_Gustavo_Adorno
+
+
+F2=/DATA/a_modulo-7/nro_screen_telegram.txt
+
+# Leer Numero de sesion
+NUM2=$(head -1 $F2 | tail -1)
+
+
+sleep 1
+screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "msg $USUARIO Hola\r"`";
+

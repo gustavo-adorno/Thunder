@@ -1,0 +1,1 @@
+[SOMSQL\SOMSQL].Bkp_First.dbo.First_Autoriza_Telegram_Thundersoft

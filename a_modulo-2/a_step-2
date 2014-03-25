@@ -1,0 +1,53 @@
+#!/bin/sh
+#!/bin/bash
+
+FILE=/tmp/screenlog-telegram-limpio 
+
+F0=/DATA/a_modulo-2/f0.txt 
+
+F1=/DATA/a_modulo-2/f1.txt 
+F2=/DATA/a_modulo-2/f2.txt 
+F3=/DATA/a_modulo-2/f3.txt 
+F4=/DATA/a_modulo-2/mensaje.txt
+
+
+S1=/DATA/a_modulo-2/s1.txt 
+S2=/DATA/a_modulo-2/s2.txt 
+S3=/DATA/a_modulo-2/s3.txt 
+S4=/DATA/a_modulo-2/s4.txt 
+S5=/DATA/a_modulo-2/mensaje-seguro.txt 
+
+# Busqueda de todos las lineas con ##
+grep -r "##" $FILE > $F1
+
+# Limpieza de los Esc
+sed 's/[\x01-\x1F\x7F]//g' $F1 > $F0
+
+# Como son dos patrones distintos los que necesito analizar es necesario no borrar la informacion
+sed -n 's/^.*\(36;1m*[^\s][^]]*\).*/\1/p' $F0 > $S1
+
+# Limpieza del archivo Encriptado
+sed 's/36;1m//' $S1 > $S2
+sed 's/34;1m//' $S2 > $S3
+sed 's/0m//' $S3 > $S4
+sed 's/>>>//' $S4 >> $S5
+
+
+# Primera limpieza de las lineas
+sed -n 's/^.*\(1;31m*[^\s][^]]*\).*/\1/p' $F0 > $F3
+
+# Limpieza del archivo
+sed 's/1;31m//' $F3 > $F2
+sed 's/34;1m//' $F2 > $F3
+sed 's/0;31m//' $F3 > $F2
+sed 's/0m//' $F2 > $F3
+sed 's/>>>//' $F3 > $F2
+
+# Encolado de los mensajes
+sed 's/0m//' $F2 >> $F4
+
+
+
+
+
+

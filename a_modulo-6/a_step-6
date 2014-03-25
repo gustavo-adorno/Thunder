@@ -1,0 +1,6 @@
+#!/bin/sh
+#!/bin/bash
+
+
+python /DATA/a_modulo-6/a_step-6.py
+

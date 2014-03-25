@@ -1,0 +1,14 @@
+#!/bin/sh
+#!/bin/bash
+
+# Guardado historico del log
+
+F1=/tmp/screenlog-telegram
+F2=/DATA/a_modulo-9/f1.txt
+F3=/DATA/a_modulo-9/screen-history.txt
+
+# Limpieza de los Esc
+sed 's/[\x01-\x1F\x7F]//g' $F1 > $F2
+
+
+cat $F2 >> $F3

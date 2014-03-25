@@ -1,0 +1,63 @@
+#!/bin/sh
+#!/bin/bash
+
+FILE=/DATA/a_modulo-6/path.txt
+
+F1=/DATA/a_modulo-6/f1.txt
+F2=/DATA/a_modulo-6/f2.txt
+F3=/DATA/a_modulo-6/f3.txt
+F4=/DATA/a_modulo-6/f4.txt
+F5=/DATA/a_modulo-6/f5.txt
+F6=/DATA/a_modulo-6/f6.txt
+F7=/DATA/a_modulo-6/f7.txt
+
+
+F11=/DATA/a_modulo-6/usuario.txt
+F12=/DATA/a_modulo-6/orden.txt
+
+F13=/DATA/reporte/tx.txt
+F14=/DATA/a_modulo-6/cliente.txt
+
+
+cliente=$(awk 'NR==1' $FILE)
+
+
+F15=/DATA/SHARED/aprobaciones/$cliente
+
+echo $F15
+
+# Busqueda de la linea con el usuario
+grep -r "##" $F15 > $F1
+
+# Limpieza de los Esc
+sed 's/[\x01-\x1F\x7F]//g' $F1 > $F2
+
+# Elimino el ## para obtener el cliente
+sed 's/##//' $F2 > $F11
+
+# Leo usuario
+USER=$(head -1 $F11 | tail -1)
+
+# Elimino el usuario del archivo a enviar
+sed '/'$USER'/d' $F15 > $F3
+
+# Eliminar lineas vacias
+sed '/^$/d' $F3 > $F4
+
+
+# Numero sesion Telegram
+TS=/DATA/a_modulo-7/nro_screen_telegram.txt
+
+# Leer Numero de sesion
+NUM=$(head -1 $TS | tail -1)
+
+if [ -s "$F4" ]
+then
+        screen -S $NUM.telegram-session -p 0 -X stuff "`printf "send_text $USER $F4\r"`";
+        sleep 2
+        # Eliminacion de archivo procesado
+        rm -f /DATA/SHARED/aprobaciones/$cliente
+else
+        echo "Uhh"
+fi
+
