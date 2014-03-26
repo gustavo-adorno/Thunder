@@ -1,10 +1,11 @@
 #!/bin/sh
 
+# Generacion de sesion principal las opciones -LS graban en el log el contenido de la sesion Telegram
+# la opcion -dm crea la sesion en segundo plano desde el arranque
 screen -dm telegram-sqsh
 screen -LSdm telegram-session
 
 
-
-
-
-
+# Generacion de sesiones para procesamiento paralelo
+screen -dm telegram-sqsh-s1
+screen -dm telegram-session-s1
