@@ -1,0 +1,71 @@
+#!/bin/bash
+
+F1=/DATA/s_1/a_modulo-3/formulario.txt
+N1=/DATA/s_1/a_modulo-3/numero.txt
+A1=/DATA/s_1/a_modulo-3/accion.txt
+
+
+F=$(head -1 $F1 | tail -1)
+
+N=$(head -1 $N1 | tail -1)
+
+A=$(head -1 $A1 | tail -1)
+
+
+#CLIENT=/DATA/s_1/a_modulo-3/cliente.txt
+
+# Leer la primera linea del archivo
+#CLI=$(head -1 $CLIENT | tail -1)
+
+F1=/DATA/s_1/a_modulo-7/nro_screen_sqsh.txt
+
+# Leer Numero de sesion
+NUM=$(head -1 $F1 | tail -1)
+
+
+db=/DATA/s_1/a_modulo-7/db_aut.txt
+db2=/DATA/s_1/a_modulo-7/db_aut_test.txt
+
+
+# Leer Nombre de la db
+DB=$(head -1 $db2 | tail -1)
+
+screen -S $NUM.telegram-sqsh-s1 -p 0 -X stuff "`printf "/usr/local/bin/sqsh -S SOMSQL\r"`";
+
+screen -S $NUM.telegram-sqsh-s1 -p 0 -X stuff "`printf "exec $DB '$F', $N, '$A'\r"`";
+
+screen -S $NUM.telegram-sqsh-s1 -p 0 -X stuff "`printf "\go\r"`";
+
+#screen -S $NUM.telegram-sqsh-s1 -p 0 -X stuff "`printf "\go >/DATA/SHARED/$CLI-$r.txt\r"`";
+
+sleep 3
+screen -S $NUM.telegram-sqsh-s1 -p 0 -X stuff "`printf "quit\r"`";
+
+
+
+
+#USUARIO=/DATA/s_1/a_modulo-3/usuario.txt
+
+# Leer la primera linea del archivo
+#USER=$(head -1 $USUARIO | tail -1)
+
+#F2=/DATA/s_1/a_modulo-7/nro_screen_telegram.txt
+
+# Leer Numero de sesion
+#NUM2=$(head -1 $F2 | tail -1)
+
+#echo $USER
+#screen -S $NUM2.telegram-session-s1 -p 0 -X stuff "`printf "./telegram -k tg.pub\r"`";
+
+#sleep 10
+#screen -S $NUM2.telegram-session-s1 -p 0 -X stuff "`printf "msg $USER $r\r"`";
+
+#sleep 1
+#screen -S $NUM2.telegram-session-s1 -p 0 -X stuff "`printf "send_text $USER $F\r"`";
+
+#sleep 1
+#screen -S $NUM2.telegram-session-s1 -p 0 -X stuff "`printf "send_text $USER $N\r"`";
+
+#sleep 1
+#screen -S $NUM2.telegram-session-s1 -p 0 -X stuff "`printf "send_text $USER $A\r"`";
+

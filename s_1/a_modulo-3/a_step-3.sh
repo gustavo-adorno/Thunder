@@ -1,64 +1,71 @@
 #!/bin/sh
 #!/bin/bash
 
+# Armamdo del procesamiento paralelo leeo la segunda linea de cada archivo
+
 FILE=/DATA/a_modulo-2/mensaje.txt
+# Leer la primera linea del archivo
+FILE2=$(head -2 $FILE | tail -1)
 
 FILES=/DATA/a_modulo-2/mensaje-seguro.txt
+# Leer la primera linea del archivo
+FILES2=$(head -1 $FILES2 | tail -1)
 
 
-F1=/DATA/a_modulo-3/f1.txt
-F2=/DATA/a_modulo-3/f2.txt
-F3=/DATA/a_modulo-3/f3.txt
-F4=/DATA/a_modulo-3/f4.txt
-F5=/DATA/a_modulo-3/f5.txt
-F6=/DATA/a_modulo-3/f6.txt
-F7=/DATA/a_modulo-3/f7.txt
-F8=/DATA/a_modulo-3/f8.txt
-F9=/DATA/a_modulo-3/f9.txt
-F10=/DATA/a_modulo-3/f10.txt
+
+F1=/DATA/s_1/a_modulo-3/f1.txt
+F2=/DATA/s_1/a_modulo-3/f2.txt
+F3=/DATA/s_1/a_modulo-3/f3.txt
+F4=/DATA/s_1/a_modulo-3/f4.txt
+F5=/DATA/s_1/a_modulo-3/f5.txt
+F6=/DATA/s_1/a_modulo-3/f6.txt
+F7=/DATA/s_1/a_modulo-3/f7.txt
+F8=/DATA/s_1/a_modulo-3/f8.txt
+F9=/DATA/s_1/a_modulo-3/f9.txt
+F10=/DATA/s_1/a_modulo-3/f10.txt
 
 
-S1=/DATA/a_modulo-3/s1.txt
-S2=/DATA/a_modulo-3/s2.txt
-S3=/DATA/a_modulo-3/s3.txt
-S4=/DATA/a_modulo-3/s4.txt
-S5=/DATA/a_modulo-3/s5.txt
-S6=/DATA/a_modulo-3/s6.txt
-S7=/DATA/a_modulo-3/s7.txt
-S8=/DATA/a_modulo-3/s8.txt
-S9=/DATA/a_modulo-3/s9.txt
-S10=/DATA/a_modulo-3/s10.txt
+S1=/DATA/s_1/a_modulo-3/s1.txt
+S2=/DATA/s_1/a_modulo-3/s2.txt
+S3=/DATA/s_1/a_modulo-3/s3.txt
+S4=/DATA/s_1/a_modulo-3/s4.txt
+S5=/DATA/s_1/a_modulo-3/s5.txt
+S6=/DATA/s_1/a_modulo-3/s6.txt
+S7=/DATA/s_1/a_modulo-3/s7.txt
+S8=/DATA/s_1/a_modulo-3/s8.txt
+S9=/DATA/s_1/a_modulo-3/s9.txt
+S10=/DATA/s_1/a_modulo-3/s10.txt
 
-F11=/DATA/a_modulo-3/usuario.txt
-S11=/DATA/a_modulo-3/usuario-seguro.txt
+F11=/DATA/s_1/a_modulo-3/usuario.txt
+S11=/DATA/s_1/a_modulo-3/usuario-seguro.txt
 
-F12=/DATA/a_modulo-3/orden.txt
-S12=/DATA/a_modulo-3/orden-seguro.txt
+F12=/DATA/s_1/a_modulo-3/orden.txt
+S12=/DATA/s_1/a_modulo-3/orden-seguro.txt
 
 F13=/DATA/reporte/tx.txt
 
 
 # En este archivo almaceno la informacion que le sigue a ##r o ##a o ##q
-F14=/DATA/a_modulo-3/cliente.txt
-S14=/DATA/a_modulo-3/cliente-seguro.txt
+F14=/DATA/s_1/a_modulo-3/cliente.txt
+S14=/DATA/s_1/a_modulo-3/cliente-seguro.txt
 
-F15=/DATA/a_modulo-3/formulario.txt
-S15=/DATA/a_modulo-3/formulario-seguro.txt
+F15=/DATA/s_1/a_modulo-3/formulario.txt
+S15=/DATA/s_1/a_modulo-3/formulario-seguro.txt
 
-F16=/DATA/a_modulo-3/numero.txt
-S16=/DATA/a_modulo-3/numero-seguro.txt
+F16=/DATA/s_1/a_modulo-3/numero.txt
+S16=/DATA/s_1/a_modulo-3/numero-seguro.txt
 
-F17=/DATA/a_modulo-3/accion.txt
-S17=/DATA/a_modulo-3/accion-seguro.txt
+F17=/DATA/s_1/a_modulo-3/accion.txt
+S17=/DATA/s_1/a_modulo-3/accion-seguro.txt
 
 # Generacion de usuario seguro
-F18=/DATA/a_modulo-3/usuario-s.txt
+F18=/DATA/s_1/a_modulo-3/usuario-s.txt
 
 # Leer la primera linea del archivo
-head -1 $FILE | tail -1 >> $F1 
+head -1 $FILE2 | tail -1 >> $F1 
 
 # Leer la primera linea del archivo SEGURO
-head -1 $FILES | tail -1 >> $S1 
+head -1 $FILES2 | tail -1 >> $S1 
 
 
 
