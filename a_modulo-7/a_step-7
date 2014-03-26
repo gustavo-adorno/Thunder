@@ -5,22 +5,50 @@ mount -t cifs //192.168.1.5/DATA -o username=hgallardo,password=Piedras428 /DATA
 
 sleep 15
 
+
+# Generacion de sesion principal las opciones -LS graban en el log el contenido de la sesion Telegram
+# la opcion -dm crea la sesion en segundo plano desde el arranque
 screen -dm telegram-sqsh
 screen -LSdm telegram-session
+
+
+# Generacion de sesiones para procesamiento paralelo
+screen -dm telegram-sqsh-s1
+screen -dm telegram-session-s1
+
 
 sleep 15
 
 F1=/DATA/a_modulo-7/f1.txt 
+
+# Sesion sqsh
 F2=/DATA/a_modulo-7/f2.txt 
 F3=/DATA/a_modulo-7/f3.txt 
 F4=/DATA/a_modulo-7/f4.txt
 
+# Sesion session
 F5=/DATA/a_modulo-7/f5.txt
 F6=/DATA/a_modulo-7/f6.txt
 F7=/DATA/a_modulo-7/f7.txt
 
-F10=/DATA/a_modulo-7/nro_screen_sqsh.txt
-F11=/DATA/a_modulo-7/nro_screen_telegram.txt
+# Sesion sqsh-s1
+F8=/DATA/a_modulo-7/f8.txt
+F9=/DATA/a_modulo-7/f9.txt
+F10=/DATA/a_modulo-7/f10.txt
+
+# Sesion session-s1
+F11=/DATA/a_modulo-7/f11.txt
+F12=/DATA/a_modulo-7/f12.txt
+F13=/DATA/a_modulo-7/f13.txt
+
+
+# Sesion principal
+F40=/DATA/a_modulo-7/nro_screen_sqsh.txt
+F41=/DATA/a_modulo-7/nro_screen_telegram.txt
+
+# Nro de S1 para procesaminento paralelo
+F42=/DATA/a_modulo-7/nro_screen_sqsh_s1.txt
+F43=/DATA/a_modulo-7/nro_screen_telegram_s1.txt
 
 screen -ls > $F1
 
@@ -36,12 +64,12 @@ sed 's/([^)]*)//g' $F2 > $F3
 sed 's/.telegram-sqsh//' $F3 > $F4
 
 # Eliminacion de los espacios en blanco  adelante y atras
-sed 's/^[ \t]*//;s/[ \t]*$//' $F4 > $F10
+sed 's/^[ \t]*//;s/[ \t]*$//' $F4 > $F40
 
 sleep 5
 
 # Leer Numero de sesion
-NUM=$(head -1 $F10 | tail -1)
+NUM=$(head -1 $F40 | tail -1)
 
 screen -S $NUM.telegram-sqsh -p 0 -X stuff "`printf "cd /root\r"`";
 
@@ -59,14 +87,14 @@ sed 's/([^)]*)//g' $F5 > $F6
 sed 's/.telegram-session//' $F6 > $F7
 
 # Eliminacion de los espacios en blanco  adelante y atras
-sed 's/^[ \t]*//;s/[ \t]*$//' $F7 > $F11
+sed 's/^[ \t]*//;s/[ \t]*$//' $F7 > $F41
 
 
 sleep 5
 
 
 # Leer Numero de sesion 
-NUM2=$(head -1 $F11 | tail -1)
+NUM2=$(head -1 $F41 | tail -1)
 
 screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "cd /DATA/tg-master\r"`";
 
@@ -76,3 +104,56 @@ screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "./telegram -k tg.pub\r"
 #sleep 5
 #screen -S $NUM2.telegram-session -p 0 -X stuff "`printf "status_online\r"`";
 
+
+
+#-------------- sqsh-s1 ------------------------------------
+
+# Busqueda de todos las lineas con ##
+grep -r ".telegram-sqsh-s1" $F1 > $F8
+
+# Elimina la informacion entre ()
+sed 's/([^)]*)//g' $F8 > $F9
+
+# Eliminacion de espacios en blanco
+sed 's/.telegram-sqsh-s1//' $F9 > $F10
+
+# Eliminacion de los espacios en blanco  adelante y atras
+sed 's/^[ \t]*//;s/[ \t]*$//' $F10 > $F42
+
+sleep 5
+
+# Leer Numero de sesion
+NUM3=$(head -1 $F42 | tail -1)
+
+screen -S $NUM3.telegram-sqsh-s1 -p 0 -X stuff "`printf "cd /root\r"`";
+
+
+
+#-------------- telegram-s1 ------------------------------------
+
+# Busqueda de todos las lineas con ##
+grep -r ".telegram-session-s1" $F1 > $F11
+
+# Elimina la informacion entre ()
+sed 's/([^)]*)//g' $F11 > $F12
+
+# Eliminacion de espacios en blanco
+sed 's/.telegram-session-s1//' $F12 > $F13
+
+# Eliminacion de los espacios en blanco  adelante y atras
+sed 's/^[ \t]*//;s/[ \t]*$//' $F13 > $F43
+
+
+sleep 5
+
+
+# Leer Numero de sesion 
+NUM4=$(head -1 $F43 | tail -1)
+
+screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "cd /DATA/tg-master\r"`";
+
+sleep 10
+screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "./telegram -k tg.pub\r"`";
+
+#sleep 5
+#screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "status_online\r"`";
