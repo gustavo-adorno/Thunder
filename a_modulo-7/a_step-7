@@ -153,7 +153,7 @@ NUM4=$(head -1 $F43 | tail -1)
 screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "cd /DATA/tg-master\r"`";
 
 sleep 10
-screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "./telegram -k tg.pub\r"`";
+screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "./telegram -k tg-server.pub\r"`";
 
 #sleep 5
 #screen -S $NUM4.telegram-session-s1 -p 0 -X stuff "`printf "status_online\r"`";
